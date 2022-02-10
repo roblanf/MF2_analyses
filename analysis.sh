@@ -11,11 +11,11 @@ results='results.tsv'
 # lots of MF2 analyses
 
 algo_array=( "greedy" "rcluster" "rclusterf" "kmeans" )
-model_array=( "1" "4" "ALL" )
+model_array=( "JC" "HKY" "GTR" "JC,HKY,GTR" "ALL" )
 rate_array=( "E" "I+G" "E,G,I+G" "E,G,I,R,I+G,I+R" )
 
 # set up results file
-echo -e "Software\tThreads\tDataset\tFolder\tAlgorithm\tmerge_model\tmerge-rate\tCommandline\tTotal_execution_time\tPeak_memory\tPercent_CPU\tBIC\tN_partitions" > results.tsv
+echo -e "Software\tThreads\tDataset\tFolder\tAlgorithm\tmerge-model\tmerge-rate\tCommandline\tTotal_execution_time\tPeak_memory\tPercent_CPU\tBIC\tN_partitions" > results.tsv
 
 for algo in "${algo_array[@]}" ; do
 	for model in "${model_array[@]}" ; do
@@ -26,8 +26,10 @@ for algo in "${algo_array[@]}" ; do
 			# no commas or plusses in folder names
 			ratef=`echo $rate | tr ',' '-'`
 			ratef=`echo $ratef | tr '+' 'n'` 
+			modelf=`echo $model | tr ',' '-'`
+			modelf=`echo $modelf | tr '+' 'n'`
 
-			fldr="MF2_""$model""_""$algo""_""$ratef""_""$threads"
+			fldr="MF2_""$modelf""_""$algo""_""$ratef""_""$threads"
 			echo $fldr
 			mkdir $fldr
 			cd $fldr
