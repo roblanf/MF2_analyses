@@ -40,13 +40,13 @@ for algo in "${algo_array[@]}" ; do
 			echo ""
 
 			# now we extract the results
-			Commandline=Commandline=$(sed '1q;d' "$fldr""monitoring.txt" | cut -d ':' -f 2)
-			Total_execution_time=$(sed '5q;d' "$fldr""monitoring.txt" | cut -d ')' -f 3 | cut -d ' ' -f 2)
-			Peak_memory=$(sed '10q;d' "$fldr""monitoring.txt" | cut -d ':' -f 2)
-			Percent_CPU=$(sed '4q;d' "$fldr""monitoring.txt" | cut -d ':' -f 2)
+			Commandline=Commandline=$(sed '1q;d' "$fldr/""monitoring.txt" | cut -d ':' -f 2)
+			Total_execution_time=$(sed '5q;d' "$fldr/""monitoring.txt" | cut -d ')' -f 3 | cut -d ' ' -f 2)
+			Peak_memory=$(sed '10q;d' "$fldr/""monitoring.txt" | cut -d ':' -f 2)
+			Percent_CPU=$(sed '4q;d' "$fldr/""monitoring.txt" | cut -d ':' -f 2)
 			Percent_CPU=${Percent_CPU::-1}
-			BIC=grep 'Bayesian information criterion (BIC)' "$fldr""partitions.nex.iqtree" | cut -d ':' -f 2 | sed 's/ //g'
-			N_partitions=$(wc -l "$fldr""partitions.nex.best_scheme" | cut -c 1)
+			BIC=$(grep 'Bayesian information criterion (BIC)' "$fldr/""partitions.nex.iqtree" | cut -d ':' -f 2 | sed 's/ //g')
+			N_partitions=$(wc -l "$fldr/""partitions.nex.best_scheme" | cut -c 1)
 			Dataset=$(basename $base)
 			
 			echo -e "MF2\t$threads\t$Dataset\t$fldr\t$algo\t$model\t$rate\t$Commandline\t$Total_execution_time\t$Peak_memory\t$Percent_CPU\t$BIC\t$N_partitions" >> results.tsv
