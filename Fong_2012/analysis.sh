@@ -28,9 +28,9 @@ rate_array=( "E" "I+G" "E,G,I+G" "E,G,I,R,I+G,I+R" )
 
 threads_array=( 8 16 32 64 128 )
 
-$algo="greedy"
-$model="GTR"
-$rate="E,G,I+G"
+algo="greedy"
+model="GTR"
+rate="E,G,I+G"
 
 for threads in "${threads_array[@]}" ; do
 	echo "$threads"
