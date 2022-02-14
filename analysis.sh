@@ -4,7 +4,7 @@ pf2=/data/rob/mf2/partitionfinder-2.1.1/PartitionFinder.py
 aln=/alignment.phy
 iqparts=/partitions.nex
 pfcfg=/partition_finder.cfg
-threads=32
+threads=64
 seed=123456742
 results='results.tsv'
 
@@ -60,17 +60,12 @@ for algo in "${algo_array[@]}" ; do
 done
 
 
-
-# only MF2 stuff for now
-exit 1
-
 # MF2/PF2 timing comparison
-
 
 #Greedy, raxml models. This is for direct comparison with what should be the same 
 # analysis in PF2
 
-threads_array=( 1 2 4 8 16 32 )
+threads_array=( 1 2 4 8 16 32 64 128 )
 
 for threads in "${threads_array[@]}" ; do
 	echo "$threads"
@@ -80,7 +75,8 @@ for threads in "${threads_array[@]}" ; do
 	cd $fldr
 	cp "$base$aln" "$base$fldr$aln"
 	cp "$base$iqparts" "$base$fldr$iqparts"
-	$iqtree -s "$base$fldr$aln" -spp "$base$fldr$iqparts" -m TESTMERGEONLY -mset GTR -mrate E,I,G,I+G,R --merge-model GTR --merge-rate E,G,I+G --merge greedy  -nt $threads --seed $seed
+    /usr/bin/time -o monitoring.txt -v $iqtree -s "$base$fldr$aln" -spp "$base$fldr$iqparts" -m TESTMERGEONLY -mset GTR -mrate "E,G,I+G" --merge-model GTR --merge-rate "E,G,I+G" --merge greedy  -nt $threads --seed $seed
+
 	cd $base
 
 	# 2. PF2 Greedy, raxml models. 
@@ -89,7 +85,7 @@ for threads in "${threads_array[@]}" ; do
 	cd $fldr
 	cp "$base$aln" "$base$fldr$aln"
 	cp "$base$pfcfg" "$base$fldr$pfcfg"
-	python $pf2 "$base$fldr$pfcfg" --raxml -p $threads --no-ml-tree
+	/usr/bin/time -o monitoring.txt -v python $pf2 "$base$fldr$pfcfg" --raxml -p $threads
 	cd $base
 
 done
