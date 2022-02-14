@@ -1,5 +1,5 @@
-base=/data/rob/mf2/analyses/test/Endicot_2008/
-iqtree=/data/rob/mf2/analyses/test/iqtree-2.2.0-beta/bin/iqtree2
+base=/data/rob/mf2/MF2_analyses/Fong_2012
+iqtree=/data/rob/mf2/iqtree-2.1.2-Linux/bin/iqtree2
 pf2=/data/rob/mf2/partitionfinder-2.1.1/PartitionFinder.py
 aln=/alignment.phy
 iqparts=/partitions.nex
