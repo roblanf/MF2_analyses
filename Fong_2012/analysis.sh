@@ -1,4 +1,4 @@
-base=/data/rob/mf2/MF2_analyses/Fong_2012
+base=/data/rob/mf2/MF2_analyses/Fong_2012/
 iqtree=/data/rob/mf2/iqtree-2.1.2-Linux/bin/iqtree2
 pf2=/data/rob/mf2/partitionfinder-2.1.1/PartitionFinder.py
 aln=/alignment.phy
